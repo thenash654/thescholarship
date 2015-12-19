@@ -134,7 +134,7 @@ print "Database NOT Found ";
 }
 ?>
 
-<form name="signup" method="post" action="index.php">
+<form name="signup" method="post" action="signup.php">
     <div style="position:absolute; top:45%; left:45%">
 
       <h1>
