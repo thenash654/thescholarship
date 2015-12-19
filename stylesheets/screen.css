@@ -153,6 +153,7 @@ header span.ribbon-inner {
   z-index: 1;
 }
 
+
 header span.left-tail, header span.right-tail {
   position: relative;
   display: block;
@@ -215,7 +216,7 @@ div#no-downloads span.inner {
   background: transparent url(../images/download-sprite.png) 0 0 no-repeat;
 }
 
-section#downloads a {
+section#downloads div {
   display: block;
   position: relative;
   height: 67px;
@@ -240,21 +241,21 @@ section#downloads a em {
   display: block;
 }
 
-section#downloads a.zip {
+section#downloads div.zip {
   float: left;
   background-position: 0 0;
 }
 
-section#downloads a.tgz {
+section#downloads div.tgz {
   float: right;
   background-position: -275px 0;
 }
 
-section#downloads a.zip:hover {
+section#downloads div.zip:hover {
   /*background-position: 0 -197px;*/
 }
 
-section#downloads a.tgz:hover {
+section#downloads div.tgz:hover {
   /*background-position: -275px -197px;*/
 }
 
