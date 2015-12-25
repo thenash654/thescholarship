@@ -84,28 +84,33 @@
       <span class="banner-fix"></span>
 
       <section id="main_content">
-        <h1 align="center" style="font-size: 20px;"> Home Page </h1>
+        <h1 align="center" style="font-size: 20px;"> Book </h1>
         <!-- <br> -->
         <input type="text" id="search" style="position:relative; width:60%; left:12%; height:20px;">
         <input type="submit" id="search-btn" style="position:relative; left:70px; text-size 10px'">
         <br>
         <?php
+        // echo $_GET['bookname'];
+        $bookname = $_GET['bookname'];
         include_once 'connectDB.php';
-        
-        $SQL = "SELECT book_name from book";
 
+        $SQL = "SELECT * from book b LEFT JOIN download_links d ON b.book_ID=d.book_ID LEFT JOIN wrote w ON b.book_ID=w.book_ID left join author a on w.Author_ID = a.author_ID where book_name='$bookname'";
+        $SQL2 = "SELECT * from book b left join wrote w on b.book_ID=w.book_ID left join author a on a.author_ID=w.author_ID where book_name='$bookname'";
         $result = mysqli_query($db_handle,$SQL);
-        while ( $db_field = mysqli_fetch_assoc($result) ) {
-           $url = "bookinfo.php?bookname=".$db_field['book_name'];?>
-           <a href="<?php print $url; ?>">  
-            <?php
-            //echo '<a href="bookinfo.php?bookname=' . $url . ">".$db_field['book_name'].'</a><br>';
-        echo $db_field['book_name'] . "<BR>";
-        
+        $result2 = mysqli_query($db_handle, $SQL2);
+        $db_field = mysqli_fetch_assoc($result);
+        print "Name: ".$db_field['book_name']."<BR>";
+        Echo "Author: <BR>";
+        while ($db_field2 = mysqli_fetch_assoc($result2))
+        {
+          print $db_field2['Author_name']."<BR>";
         }
-        ?>
-      </a>
+        print "Summary: ".$db_field['summary']."<BR>";
+        print "Download link".$db_field['link']."<BR>";
         
+        
+        //echo $var_value; 
+        ?>
 <!-- <a id="log-in" href=""><img src="images\Log in.jpg" style="width:177px; height:92.75px; position:relative;left:70px  "></a> -->
 <!-- <a id="sign-up" href=""><img src="images\Sign up.jpg" style="width:177px; height:92.75px; position:relative; left:70px "></a> -->
 
