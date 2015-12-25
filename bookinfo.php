@@ -88,7 +88,7 @@
         <!-- <br> -->
         <input type="text" id="search" style="position:relative; width:60%; left:12%; height:20px;">
         <input type="submit" id="search-btn" style="position:relative; left:70px; text-size 10px'">
-        <br>
+        <br><br>
         <?php
         // echo $_GET['bookname'];
         $bookname = $_GET['bookname'];
@@ -110,7 +110,7 @@
         
         
         //echo $var_value; 
-        ?>
+        ?><br>
 <!-- <a id="log-in" href=""><img src="images\Log in.jpg" style="width:177px; height:92.75px; position:relative;left:70px  "></a> -->
 <!-- <a id="sign-up" href=""><img src="images\Sign up.jpg" style="width:177px; height:92.75px; position:relative; left:70px "></a> -->
 
@@ -144,7 +144,7 @@
 
 
   </body>
-    <div style="position:absolute; width:100%; bottom:0px; left:0%;">
+    <div style="position:relative; width:100%; bottom:0px; left:0%;">
       <footer>
         <span class="ribbon-outer">
           <span class="ribbon-inner" >
