@@ -38,7 +38,7 @@
 
   <script>
   $(function() {
-    $( "input[type=submit], a, button" )
+    $( "input[type=submit], b, button" )
       .button()
       .click(function( event ) {
       });
@@ -54,14 +54,14 @@
   <body>
     <div class="shell">
       <header>
+        <a href="home.php">
         <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>The Scholar&#39;s Ship</h1>
+          <span class="ribbon-inner"><h1>The Scholar&#39;s Ship</h1>
             <h2>Your go-to website for course textbooks</h2>
           </span>
           <span class="left-tail"></span>
           <span class="right-tail"></span>
-        </span>
+        </span></a>
       </header>
 
 <div >
@@ -99,7 +99,7 @@ $error = "";
     $result=mysqli_query($db_handle,$SQL);
 
     $row=mysqli_fetch_assoc($result);
-    
+
      if($row['password']==$password)
      {
         $_SESSION['user'] = $row['username'];

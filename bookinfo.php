@@ -46,15 +46,15 @@
     <!-- <a id="forkme_banner" href="https://github.com/thenash654/thescholarship">View on GitHub</a> -->
     <div class="shell">
 
-      <header>
+    <header>
+        <a href="home.php">
         <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>The Scholar&#39;s Ship</h1>
+          <span class="ribbon-inner"><h1>The Scholar&#39;s Ship</h1>
             <h2>Your go-to website for course textbooks</h2>
           </span>
           <span class="left-tail"></span>
           <span class="right-tail"></span>
-        </span>
+        </span></a>
       </header>
 
 <div style="width:100%">
@@ -84,7 +84,7 @@
       <span class="banner-fix"></span>
 
       <section id="main_content">
-        <h1 align="center" style="font-size: 20px;"> Book </h1>
+        <h1 align="center" style="font-size: 20px;"> Book Information </h1>
         <!-- <br> -->
         <input type="text" id="search" style="position:relative; width:60%; left:12%; height:20px;">
         <input type="submit" id="search-btn" style="position:relative; left:70px; text-size 10px'">
@@ -99,14 +99,14 @@
         $result = mysqli_query($db_handle,$SQL);
         $result2 = mysqli_query($db_handle, $SQL2);
         $db_field = mysqli_fetch_assoc($result);
-        print "Name: ".$db_field['book_name']."<BR>";
-        Echo "Author: <BR>";
+        print "<h1>Name: </h1>".$db_field['book_name']."<BR>";
+        Echo "<h1>Author: </h1>";
         while ($db_field2 = mysqli_fetch_assoc($result2))
         {
           print $db_field2['Author_name']."<BR>";
         }
-        print "Summary: ".$db_field['summary']."<BR>";
-        print "Download link".$db_field['link']."<BR>";
+        print "<h1>Summary:</h1> ".$db_field['summary']."<BR>";
+        print "<a href=".$db_field['link'].">Download link</a><BR>";
         
         
         //echo $var_value; 
@@ -139,6 +139,11 @@
 <p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p> -->
       </section>
 
+
+    </div>
+
+
+  </body>
     <div style="position:absolute; width:100%; bottom:0px; left:0%;">
       <footer>
         <span class="ribbon-outer">
@@ -151,9 +156,4 @@
 
       </footer>
     </div>
-
-    </div>
-
-
-  </body>
 </html>

@@ -86,55 +86,39 @@
       <section id="main_content">
         <h1 align="center" style="font-size: 20px;"> Home Page </h1>
         <!-- <br> -->
-        <input type="text" id="search" style="position:relative; width:60%; left:12%; height:20px;">
-        <input type="submit" id="search-btn" style="position:relative; left:70px; text-size 10px'">
+        <form name="signup" method="post" action="home.php">
+        <input type="text"  name="searchname" style="position:relative; width:60%; left:12%; height:20px;" >
+        <input type="submit" name="search" value="Search" style="position:relative; left:70px; text-size 10px'">
+      </form>
         <br>
         <?php
         include_once 'connectDB.php';
-        
-        $SQL = "SELECT book_name from book";
+        if (isset($_POST['search'])) 
+        {
+          $bookname = $_POST['searchname']; 
+          $SQL = "SELECT book_name from book where book_name='$bookname'";
+        }
+        else{
+          $SQL = "SELECT book_name from book";}
 
         $result = mysqli_query($db_handle,$SQL);
         while ( $db_field = mysqli_fetch_assoc($result) ) {
            $url = "bookinfo.php?bookname=".$db_field['book_name'];?>
            <a href="<?php print $url; ?>">  
             <?php
-            //echo '<a href="bookinfo.php?bookname=' . $url . ">".$db_field['book_name'].'</a><br>';
         echo $db_field['book_name'] . "<BR>";
         
         }
         ?>
       </a>
-        
-<!-- <a id="log-in" href=""><img src="images\Log in.jpg" style="width:177px; height:92.75px; position:relative;left:70px  "></a> -->
-<!-- <a id="sign-up" href=""><img src="images\Sign up.jpg" style="width:177px; height:92.75px; position:relative; left:70px "></a> -->
+    </section>
 
-<!-- <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+    
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
+    </div>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
 
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
-
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating pages manually</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p> -->
-      </section>
-
-    <div style="position:absolute; width:100%; bottom:0px; left:0%;">
+  </body><div style="position:relative; width:100%; bottom:0px; left:0%;">
       <footer>
         <span class="ribbon-outer">
           <span class="ribbon-inner" >
@@ -146,9 +130,4 @@
 
       </footer>
     </div>
-
-    </div>
-
-
-  </body>
 </html>
