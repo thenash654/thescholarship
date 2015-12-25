@@ -75,26 +75,8 @@
       </section>
     </div>
 
+<section id="main_content">
 
-    <div style="position:absolute; width:100%; bottom:0; left:0%;">
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner" >
-            <P>Made by Maimoona Khalid, Nashmia Riaz and Taha Raza</P>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-
-      </footer>
-
-
-    </div>
-
-
-
-
-  </body>
 <?PHP
 session_start();if(isset($_SESSION['user'])!="")
 {
@@ -141,7 +123,7 @@ print "Database NOT Found ";
 
 
 <form name="signup" method="post" action="signup.php">
-    <div style="position:absolute; top:45%; left:45%">
+    <div style="position:absolute; top:45%; left:35%">
 
       <h1>
     Username </h1>
@@ -159,5 +141,30 @@ print "Database NOT Found ";
     </div>
 </form>
 
-<text value="<?php echo "$error";?>"> </text>
+</section>
+
+    <div style="position:absolute; width:100%; bottom:0; left:0%;">
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner" >
+            <P>Made by Maimoona Khalid, Nashmia Riaz and Taha Raza</P>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+
+      </footer>
+
+
+    </div>
+
+
+
+
+  </body>
+
+
+
+
+
 </html>

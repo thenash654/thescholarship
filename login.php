@@ -64,7 +64,7 @@
         </span>
       </header>
 
-<div style="width:100%">
+<div >
       <section id="downloads">
         <span class="inner" >
           <div class="zip">
@@ -75,26 +75,9 @@
       </section>
     </div>
 
-
-    <div style="position:absolute; width:100%; bottom:0; left:0%;">
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner" >
-            <P>Made by Maimoona Khalid, Nashmia Riaz and Taha Raza</P>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-
-      </footer>
+<section id="main_content">
 
 
-    </div>
-
-
-
-
-  </body>
 <?PHP
 session_start();
 if(isset($_SESSION['user'])!="")
@@ -138,13 +121,10 @@ print "Database NOT Found ";
 }
 ?>
 
-
-
-
 <form name="signup" method="post" action="login.php">
-    <div style="position:absolute; top:45%; left:45%">
+    <div style="position:absolute; top:50%; left:35%">
 
-      <h1>
+    <h1>
     Username </h1>
     <input type="text" name="username" size="20" value="<?PHP print $username ; ?>" >
     <br><br>
@@ -160,5 +140,30 @@ print "Database NOT Found ";
 
     </div>
 </form>
+</section>
+
+
+    <div style="position:absolute; width:100%; bottom:0; left:0%;">
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner" >
+            <P>Made by Maimoona Khalid, Nashmia Riaz and Taha Raza</P>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </footer>
+
+
+    </div>
+
+
+
+
+  </body>
+
+
+
+
 
 </html>

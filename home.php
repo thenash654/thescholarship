@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=640">
 
+
     <link rel="stylesheet" href="stylesheets/core.css" media="screen">
     <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
     <link rel="stylesheet" href="stylesheets/github-light.css">
@@ -12,12 +13,32 @@
     <script type="text/javascript" src="javascripts/modernizr.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+
+    <link rel="stylesheet" href="javascripts/Common/jquery-ui-themes-1.10.4/themes/pepper-grinder/jquery-ui.css"></link>
+    <link rel="stylesheet" href="javascripts/Common/jquery-ui-themes-1.10.4/themes/pepper-grinder/jquery.ui.theme.css"></link>
+    <link rel="stylesheet" href="javascripts/Common/jquery-ui-themes-1.10.4/themes/pepper-grinder/jquery-ui.min.css"></link>
+
+
+    <script type="text/javascript" src="javascripts/Common/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="javascripts/Common/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+    <script type="text/javascript" src="javascripts/Common/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <script type="text/javascript">
 
       $(document).ready(function () {
         $('#main_content').headsmart()
-      })
-    </script>
+      
+        </script>
+  <script>
+  $(function() {
+    $( "input[type=submit], b, button" )
+      .button()
+      .click(function( event ) {
+      });
+
+      $( "#slider" ).slider();
+
+  });
+      </script>
     <title>Home Page - The Scholar's Ship</title>
   </head>
 
@@ -63,9 +84,10 @@
       <span class="banner-fix"></span>
 
       <section id="main_content">
-        <h1> Home Page </h1>
-        
-
+        <h1 align="center" style="font-size: 20px;"> Home Page </h1>
+        <!-- <br> -->
+        <input type="text" id="search" style="position:relative; width:60%; left:12%; height:20px;">
+        <input type="submit" id="search-btn" style="position:relative; left:70px; text-size 10px'">
 <!-- <a id="log-in" href=""><img src="images\Log in.jpg" style="width:177px; height:92.75px; position:relative;left:70px  "></a> -->
 <!-- <a id="sign-up" href=""><img src="images\Sign up.jpg" style="width:177px; height:92.75px; position:relative; left:70px "></a> -->
 

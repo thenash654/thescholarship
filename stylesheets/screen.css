@@ -152,6 +152,18 @@ header span.ribbon-inner {
   padding: 2px;
   z-index: 1;
 }
+/*input[type="submit"]  {
+  position: relative;
+  display: block;
+  background-color: #cd596b;
+  border: 4px solid #7c334f;
+  padding: 2px;
+  z-index: 1;
+  color: #ece4d8;
+  font-weight: 800;
+  font-style: normal;
+}
+*/
 
 
 header span.left-tail, header span.right-tail {
