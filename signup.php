@@ -48,7 +48,7 @@
   });
 
   </script>
-    <title>The Scholar&#39;s Ship by thenash654</title>
+    <title>Sign up- The Scholar's Ship</title>
   </head>
 
   <body>
@@ -96,37 +96,40 @@
 
   </body>
 <?PHP
-
-$user_name = "root";
-$password = "";
-$database = "users";
-$server = "127.0.0.1";
-
-$db_handle = mysqli_connect($server, $user_name, $password);
-
-$db_found = mysqli_select_db($db_handle,$database);
+session_start();if(isset($_SESSION['user'])!="")
+{
+ header("Location: index.php");
+}
+include_once 'connectDB.php';
 
 if ($db_found) {
 
 $username ="";
+$error = "";
+
+  if (isset($_POST['signup'])) 
+  {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $error;
+    $SQL = "INSERT INTO user (username, password) values('$username', '$password')";
+     if(mysqli_query($db_handle,$SQL))
+     {
+      ?>
+            <script type="text/javascript">alert('successfully registered ');</script>
+            <?php
+            header('Location: index.php');
+            mysqli_close($db_handle);
+     }
+     else
+     {
+            $error = "Username already taken.";
+     }
+    }
+    
+  }
 
 
-if (isset($_POST['signup'])) {
-
-$username = $_POST['username'];
-$password = $_POST['password'];
-
-$SQL = "INSERT INTO USERINFO (username, password) values('$username', '$password')";
-$result = mysqli_query($db_handle,$SQL);
-
-
-header('Location: index.php');
-}
-
-
-
-mysqli_close($db_handle);
-}
 else {
 
 print "Database NOT Found ";
@@ -134,13 +137,16 @@ print "Database NOT Found ";
 }
 ?>
 
+
+
+
 <form name="signup" method="post" action="signup.php">
     <div style="position:absolute; top:45%; left:45%">
 
       <h1>
     Username </h1>
     <input type="text" name="username" size="20" value="<?PHP print $username ; ?>" >
-
+    <?php echo "$error";?>
     <br><br>
 
     <h1>Password</h1>
@@ -152,4 +158,6 @@ print "Database NOT Found ";
 
     </div>
 </form>
+
+<text value="<?php echo "$error";?>"> </text>
 </html>

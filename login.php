@@ -41,7 +41,6 @@
     $( "input[type=submit], a, button" )
       .button()
       .click(function( event ) {
-        event.preventDefault();
       });
 
       $( "#slider" ).slider();
@@ -49,7 +48,7 @@
   });
 
   </script>
-    <title>The Scholar&#39;s Ship by thenash654</title>
+    <title>Log in - The Scholar's Ship</title>
   </head>
 
   <body>
@@ -76,6 +75,7 @@
       </section>
     </div>
 
+
     <div style="position:absolute; width:100%; bottom:0; left:0%;">
       <footer>
         <span class="ribbon-outer">
@@ -87,28 +87,78 @@
         </span>
 
       </footer>
+
+
     </div>
 
 
-
-
-    <div style="position:absolute; top:45%; left:45%">
-    <form>
-      <h1>
-    Userame </h1>
-    <input type="text" name="username" size="20"  >
-
-    <br><br>
-
-    <h1>Password</h1>
-    <input type="password" name="password" size="20" style="">
-    </form>
-    <br>
-<input type="submit" name="login" value="Log in" style="position:relative;left:30%;">
-
-    </div>
-    </div>
 
 
   </body>
+<?PHP
+session_start();
+if(isset($_SESSION['user'])!="")
+{
+ header("Location: home.php");
+}
+include_once 'connectDB.php';
+
+if ($db_found) {
+
+$username ="";
+$error = "";
+
+  if (isset($_POST['login'])) 
+  {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $SQL = "SELECT * FROM user WHERE username='$username'";
+    $result=mysqli_query($db_handle,$SQL);
+
+    $row=mysqli_fetch_assoc($result);
+     if($row['password']==$password)
+     {
+        $_SESSION['user'] = $row['username'];
+        mysqli_close($db_handle);
+        header('Location: home.php');
+     }
+     else
+     {
+            $error = "Information not correct";
+     }
+    }
+    
+  }
+
+
+else {
+
+print "Database NOT Found ";
+
+}
+?>
+
+
+
+
+<form name="signup" method="post" action="login.php">
+    <div style="position:absolute; top:45%; left:45%">
+
+      <h1>
+    Username </h1>
+    <input type="text" name="username" size="20" value="<?PHP print $username ; ?>" >
+    <br><br>
+
+    <h1>Password</h1>
+    <input type="password" name="password" size="20" style="" value="<?PHP print $password ; ?>"><br>
+
+    <?php echo "$error";?>
+    <br>
+    <input type="submit" name="login" value="Log in" style="position:relative;left:28%;">
+
+    <br>
+
+    </div>
+</form>
+
 </html>
