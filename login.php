@@ -99,6 +99,7 @@ $error = "";
     $result=mysqli_query($db_handle,$SQL);
 
     $row=mysqli_fetch_assoc($result);
+    
      if($row['password']==$password)
      {
         $_SESSION['user'] = $row['username'];

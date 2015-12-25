@@ -22,9 +22,7 @@
   </head>
 
   <body>
-    <!-- <a id="forkme_banner" href="https://github.com/thenash654/thescholarship">View on GitHub</a> -->
     <div class="shell">
-
       <header>
         <span class="ribbon-outer">
           <span class="ribbon-inner">
@@ -53,26 +51,26 @@
 
       <section id="main_content">
 
-<div style="position:absolute; top:50%; left:35%">
-<a href="login.php">
-  <header >
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>LOG IN</h1><h2></h2>
-          </span>
-        </span>
-</header>
-</a>
-<br>
-<a href="signup.php">
-  <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>SIGN UP</h1><h2></h2>
-          </span>
-        </span>
-</header>
-</a>
+      <div style="position:absolute; top:50%; left:35%">
+      <a href="login.php">
+        <header >
+              <span class="ribbon-outer">
+                <span class="ribbon-inner">
+                  <h1>LOG IN</h1><h2></h2>
+                </span>
+              </span>
+      </header>
+      </a>
+      <br>
+      <a href="signup.php">
+        <header>
+              <span class="ribbon-outer">
+                <span class="ribbon-inner">
+                  <h1>SIGN UP</h1><h2></h2>
+                </span>
+              </span>
+      </header>
+      </a>
 
  
 </div>

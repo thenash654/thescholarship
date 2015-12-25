@@ -64,10 +64,10 @@
         session_start();
         include_once 'connectDB.php';
 
-        // if(!isset($_SESSION['user']))
-        // {
-        //  header("Location: index.php");
-        // }
+        if(!isset($_SESSION['user']))
+        {
+         header("Location: index.php");
+        }
         $uname = $_SESSION['user'];
         $res=mysqli_query($db_handle,"SELECT * FROM user WHERE username='$uname'");
         $userRow=mysqli_fetch_assoc($res);
@@ -88,6 +88,20 @@
         <!-- <br> -->
         <input type="text" id="search" style="position:relative; width:60%; left:12%; height:20px;">
         <input type="submit" id="search-btn" style="position:relative; left:70px; text-size 10px'">
+        <br>
+        <?php
+        include_once 'connectDB.php';
+        
+        $SQL = "SELECT book_name from book";
+
+        $result = mysqli_query($db_handle,$SQL);
+        while ( $db_field = mysqli_fetch_assoc($result) ) {
+
+        print $db_field['book_name'] . "<BR>";
+
+
+        }
+        ?>
 <!-- <a id="log-in" href=""><img src="images\Log in.jpg" style="width:177px; height:92.75px; position:relative;left:70px  "></a> -->
 <!-- <a id="sign-up" href=""><img src="images\Sign up.jpg" style="width:177px; height:92.75px; position:relative; left:70px "></a> -->
 
@@ -116,7 +130,7 @@
 <p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p> -->
       </section>
 
-    <div style="position:absolute; width:100%; bottom:0; left:0%;">
+    <div style="position:absolute; width:100%; bottom:0px; left:0%;">
       <footer>
         <span class="ribbon-outer">
           <span class="ribbon-inner" >

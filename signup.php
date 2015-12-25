@@ -78,7 +78,8 @@
 <section id="main_content">
 
 <?PHP
-session_start();if(isset($_SESSION['user'])!="")
+session_start();
+if(isset($_SESSION['user'])!="")
 {
  header("Location: index.php");
 }
