@@ -96,10 +96,10 @@
         if (isset($_POST['search'])) 
         {
           $bookname = $_POST['searchname']; 
-          $SQL = "SELECT * from book where book_name LIKE '%$bookname%'";
+          $SQL = "SELECT * from book where book_name LIKE '%$bookname%' Order by book_name desc";
         }
         else{
-          $SQL = "SELECT * from book";}
+          $SQL = "SELECT * from book Order by book_name ";}
 
         $result = mysqli_query($db_handle,$SQL);
         while ( $db_field = mysqli_fetch_assoc($result) ) {

@@ -71,6 +71,7 @@
         $uname = $_SESSION['user'];
         $res=mysqli_query($db_handle,"SELECT * FROM user WHERE username='$uname'");
         $userRow=mysqli_fetch_assoc($res);
+        $bookname = $_GET['bookname'];
         echo $userRow['username']; ?></em>
           </div>
           <div class="tgz"><em>
@@ -84,28 +85,78 @@
       <span class="banner-fix"></span>
 
       <section id="main_content">
-        <h1 align="center" style="font-size: 20px;"> Book Information </h1>
         <!-- <br> -->
-        <input type="text" id="search" style="position:relative; width:60%; left:12%; height:20px;">
-        <input type="submit" id="search-btn" style="position:relative; left:70px; text-size 10px'">
+        <?PHP 
+        echo "<h1 align='center' style='font-size: 20px;''>".$bookname."</h1><BR>"; ?>
+        <form name="vote" method="post" action="bookinfo.php?bookname=<?PHP print $bookname; ?>">
+        <input type="submit" value="UPVOTE" name="up-btn" style="position:relative; left:150px; text-size 10px'">
+        <input type="submit" value="DOWNVOTE" name="down-btn" style="position:relative; left:160px; text-size 10px'">
+        <form>
         <br><br>
         <?php
-        $bookname = $_GET['bookname'];
+
         include_once 'connectDB.php';
+
+        $res=mysqli_query($db_handle,"SELECT user_ID FROM user WHERE username='$uname'");
+        $userID=mysqli_fetch_assoc($res);
+        $userID= $userID['user_ID'];
+
+        $res=mysqli_query($db_handle,"SELECT book_ID FROM book WHERE book_name='$bookname'");
+        $bookID=mysqli_fetch_assoc($res);
+        $bookID= $bookID['book_ID'];
+
+
+        if (isset($_POST['up-btn'])) 
+        {
+          $check = "SELECT * from voted_on where book='$bookID' and user_ID='$userID' and has_voted=0";
+          $rescheck = mysqli_query($db_handle, $check);
+          while($query=mysqli_fetch_assoc($rescheck))
+          {
+            echo"UP";
+            $upvotes = mysqli_query($db_handle,"SELECT upvotes from book where book_ID = '$bookID'");
+            $upvoteresult = mysqli_fetch_assoc($upvotes);
+            $upvoteresult = $upvoteresult['upvotes'];
+            $update = "UPDATE voted_on set has_voted=1 where user_id='$userID' and book = '$bookID' ";
+            mysqli_query($db_handle, $update);
+            echo $upvoteresult;
+            $update = "UPDATE book set upvotes=$upvoteresult+1 where book_name = '$bookname' ";
+            mysqli_query($db_handle, $update);
+          }
+        }
+        if (isset($_POST['down-btn'])) 
+        {
+          $check = "SELECT * from voted_on where book='$bookID' and user_ID='$userID' and has_voted=0";
+          $rescheck = mysqli_query($db_handle, $check);
+          while($query=mysqli_fetch_assoc($rescheck))
+          {
+            echo"DOWN";
+            $downvotes = mysqli_query($db_handle,"SELECT downvotes from book where book_ID = '$bookID'");
+            $downvoteresult = mysqli_fetch_assoc($downvotes);
+            $downvoteresult = $downvoteresult['downvotes'];
+            $update = "UPDATE voted_on set has_voted=1 where user_id='$userID' and book = '$bookID' ";
+            mysqli_query($db_handle, $update);
+            echo $downvoteresult;
+            $update = "UPDATE book set downvotes=$downvoteresult+1 where book_name = '$bookname' ";
+            mysqli_query($db_handle, $update);
+          }
+        }
 
         $SQL = "SELECT * from book b LEFT JOIN download_links d ON b.book_ID=d.book_ID  where book_name like '%$bookname%'";
         $SQL2 = "SELECT * from book b left join wrote w on b.book_ID=w.book_ID left join author a on a.author_ID=w.author_ID where book_name like '%$bookname%'";
         $result = mysqli_query($db_handle,$SQL);
         $result2 = mysqli_query($db_handle, $SQL2);
         $db_field = mysqli_fetch_assoc($result);
-        echo "<h1>Name: </h1>".$db_field['book_name']."<BR><BR>";
+        echo "<h1>Votes: </h1>";echo $db_field['upvotes']-$db_field['downvotes']."<BR>";
         echo "<h1>Author: </h1>";
+
         while ($db_field2 = mysqli_fetch_assoc($result2))
         {
           print $db_field2['Author_name']."<BR>";
-        }print "<BR>";
+        }
+        print "<BR>";
         print "<h1>Summary:</h1> ".$db_field['summary']."<BR><BR>";
         print "<a href=".$db_field['link'].">Download link</a><BR>";
+
         
         ?><br></section>
 
@@ -114,7 +165,7 @@
 
 
   </body>
-    <div style="position:absolute; width:100%; bottom:0px; left:0%;">
+    <div style="position:relative; width:100%; bottom:0px; left:0%;">
       <footer>
         <span class="ribbon-outer">
           <span class="ribbon-inner" >
