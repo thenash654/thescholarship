@@ -96,17 +96,17 @@
         if (isset($_POST['search'])) 
         {
           $bookname = $_POST['searchname']; 
-          $SQL = "SELECT book_name from book where book_name='$bookname'";
+          $SQL = "SELECT * from book where book_name LIKE '%$bookname%'";
         }
         else{
-          $SQL = "SELECT book_name from book";}
+          $SQL = "SELECT * from book";}
 
         $result = mysqli_query($db_handle,$SQL);
         while ( $db_field = mysqli_fetch_assoc($result) ) {
            $url = "bookinfo.php?bookname=".$db_field['book_name'];?>
            <a href="<?php print $url; ?>">  
             <?php
-        echo $db_field['book_name'] . "<BR>";
+            echo $db_field['book_name'] . "<BR>";
         
         }
         ?>

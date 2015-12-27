@@ -2,7 +2,7 @@
 
 $user_name = "root";
 $password = "";
-$database = "the_scholar_ship";
+$database = "thescholarship";
 $server = "127.0.0.1";
 
 $db_handle = mysqli_connect($server, $user_name, $password);
