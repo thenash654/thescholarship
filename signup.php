@@ -101,7 +101,9 @@ $error = "";
       ?>
             <script type="text/javascript">alert('successfully registered ');</script>
             <?php
-            header('Location: index.php');
+            session_start();
+            $_SESSION['user'] = $username;
+            header('Location: home.php');
             mysqli_close($db_handle);
      }
      else

@@ -108,34 +108,32 @@
 
         if (isset($_POST['up-btn'])) 
         {
-          $check = "SELECT * from voted_on where book='$bookID' and user_ID='$userID' and has_voted=0";
+          $check = "SELECT * from voted_on where book_ID='$bookID' and user_ID='$userID' and has_voted=0";
           $rescheck = mysqli_query($db_handle, $check);
           while($query=mysqli_fetch_assoc($rescheck))
           {
-            echo"UP";
+            
             $upvotes = mysqli_query($db_handle,"SELECT upvotes from book where book_ID = '$bookID'");
             $upvoteresult = mysqli_fetch_assoc($upvotes);
             $upvoteresult = $upvoteresult['upvotes'];
-            $update = "UPDATE voted_on set has_voted=1 where user_id='$userID' and book = '$bookID' ";
+            $update = "UPDATE voted_on set has_voted=1 where user_id='$userID' and book_ID = '$bookID' ";
             mysqli_query($db_handle, $update);
-            echo $upvoteresult;
             $update = "UPDATE book set upvotes=$upvoteresult+1 where book_name = '$bookname' ";
             mysqli_query($db_handle, $update);
           }
         }
         if (isset($_POST['down-btn'])) 
         {
-          $check = "SELECT * from voted_on where book='$bookID' and user_ID='$userID' and has_voted=0";
+          $check = "SELECT * from voted_on where book_ID='$bookID' and user_ID='$userID' and has_voted=0";
           $rescheck = mysqli_query($db_handle, $check);
           while($query=mysqli_fetch_assoc($rescheck))
           {
-            echo"DOWN";
+            
             $downvotes = mysqli_query($db_handle,"SELECT downvotes from book where book_ID = '$bookID'");
             $downvoteresult = mysqli_fetch_assoc($downvotes);
             $downvoteresult = $downvoteresult['downvotes'];
-            $update = "UPDATE voted_on set has_voted=1 where user_id='$userID' and book = '$bookID' ";
+            $update = "UPDATE voted_on set has_voted=1 where user_id='$userID' and book_ID = '$bookID' ";
             mysqli_query($db_handle, $update);
-            echo $downvoteresult;
             $update = "UPDATE book set downvotes=$downvoteresult+1 where book_name = '$bookname' ";
             mysqli_query($db_handle, $update);
           }
@@ -155,10 +153,28 @@
         }
         print "<BR>";
         print "<h1>Summary:</h1> ".$db_field['summary']."<BR><BR>";
-        print "<a href=".$db_field['link'].">Download link</a><BR>";
+        if (isset($_POST['download'])) 
+        {
+          mysqli_query($db_handle,"INSERT INTO views(book_ID,USER_ID) values('$bookID','$userID')");
 
-        
-        ?><br></section>
+          ob_start(); // ensures anything dumped out will be caught
+
+          // do stuff here
+          $url = $db_field['link']; // this can be set based on whatever
+
+          // clear out the output buffer
+          while (ob_get_status()) 
+          {
+              ob_end_clean();
+          }
+
+          // no redirect
+          header( "Location: $url" );
+        }
+        ?>
+        <form name="download" method="post" action="bookinfo.php?bookname=<?PHP print $bookname; ?>">
+        <input type="submit" name="download" value="Download" style="position:elative; left:40%;" ></form>
+        <br></section>
 
 
     </div>
