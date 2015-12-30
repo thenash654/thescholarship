@@ -36,7 +36,13 @@
       });
 
       $( "#slider" ).slider();
-
+      <?php 
+      $hello= array("nashmia","riaz");
+      ?>
+ 
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
   });
       </script>
     <title>Home Page - The Scholar's Ship</title>
@@ -87,7 +93,8 @@
         <h1 align="center" style="font-size: 20px;"> Home Page </h1>
         <!-- <br> -->
         <form name="signup" method="post" action="home.php">
-        <input type="text"  name="searchname" style="position:relative; width:60%; left:12%; height:20px;" >
+        
+<div class="ui-widget"><input type="text" id="tags" name="searchname" style="position:relative; width:60%; left:12%; height:20px;" ></div>
         <input type="submit" name="search" value="Search" style="position:relative; left:70px; text-size 10px'">
       </form>
         <br>

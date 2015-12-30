@@ -13,9 +13,9 @@ class uNode{
 	}
 	function addb($book)
 	{
-		
+		array_shift($this->books);
 		array_push($this->books, $book);
-		echo $book[0];
+		//echo $book[0];
 	}
 }
 class uList{
@@ -52,8 +52,8 @@ class uList{
 	{
 		for($p=$this->head; $p!=NULL; $p=$p->next){
 			echo $p->username."(";
-				for($i=0; $i<7; $i++)
-					echo $p->books[$i];
+				for($i=0; $i<6; $i++)
+					echo $p->books[$i]." ";
 			echo ")->";
 	}
 		echo "<BR>";
@@ -131,6 +131,10 @@ class hashtable{
 	function printHashtable()
 	{
 		$this->bookKeys->printhList();
+	}
+	function getUList($book)
+	{
+		return $this->bookKeys->ind[$book]->users->head;
 	}
 }
 

@@ -62,7 +62,7 @@
         <span class="inner" >
           <div class="zip"><em><?php
         session_start();
-        include_once 'connectDB.php';
+        include 'connectDB.php';
 
         if(!isset($_SESSION['user']))
         {
@@ -95,13 +95,13 @@
         <br><br>
         <?php
 
-        include_once 'connectDB.php';
+        //include 'connectDB.php';
 
         $res=mysqli_query($db_handle,"SELECT user_ID FROM user WHERE username='$uname'");
         $userID=mysqli_fetch_assoc($res);
         $userID= $userID['user_ID'];
 
-        $res=mysqli_query($db_handle,"SELECT book_ID FROM book WHERE book_name='$bookname'");
+        $res=mysqli_query($db_handle,"SELECT book_ID FROM book WHERE book_name like '%$bookname%'");
         $bookID=mysqli_fetch_assoc($res);
         $bookID= $bookID['book_ID'];
 
@@ -121,6 +121,19 @@
             $update = "UPDATE book set upvotes=$upvoteresult+1 where book_name = '$bookname' ";
             mysqli_query($db_handle, $update);
           }
+          $check = "SELECT * from voted_on where book_ID='$bookID' and user_ID='$userID' and has_voted=-1";
+          $rescheck = mysqli_query($db_handle, $check);
+          while($query=mysqli_fetch_assoc($rescheck))
+          {
+            
+            $upvotes = mysqli_query($db_handle,"SELECT upvotes from book where book_ID = '$bookID'");
+            $upvoteresult = mysqli_fetch_assoc($upvotes);
+            $upvoteresult = $upvoteresult['upvotes'];
+            $update = "UPDATE voted_on set has_voted=0 where user_id='$userID' and book_ID = '$bookID' ";
+            mysqli_query($db_handle, $update);
+            $update = "UPDATE book set upvotes=$upvoteresult+1 where book_name = '$bookname' ";
+            mysqli_query($db_handle, $update);
+          }
         }
         if (isset($_POST['down-btn'])) 
         {
@@ -132,9 +145,22 @@
             $downvotes = mysqli_query($db_handle,"SELECT downvotes from book where book_ID = '$bookID'");
             $downvoteresult = mysqli_fetch_assoc($downvotes);
             $downvoteresult = $downvoteresult['downvotes'];
-            $update = "UPDATE voted_on set has_voted=1 where user_id='$userID' and book_ID = '$bookID' ";
+            $update = "UPDATE voted_on set has_voted=-1 where user_id='$userID' and book_ID = '$bookID' ";
             mysqli_query($db_handle, $update);
             $update = "UPDATE book set downvotes=$downvoteresult+1 where book_name = '$bookname' ";
+            mysqli_query($db_handle, $update);
+          }
+          $check = "SELECT * from voted_on where book_ID='$bookID' and user_ID='$userID' and has_voted=1";
+          $rescheck = mysqli_query($db_handle, $check);
+          while($query=mysqli_fetch_assoc($rescheck))
+          {
+            
+            $upvotes = mysqli_query($db_handle,"SELECT upvotes from book where book_ID = '$bookID'");
+            $upvoteresult = mysqli_fetch_assoc($upvotes);
+            $upvoteresult = $upvoteresult['upvotes'];
+            $update = "UPDATE voted_on set has_voted=0 where user_id='$userID' and book_ID = '$bookID' ";
+            mysqli_query($db_handle, $update);
+            $update = "UPDATE book set upvotes=$upvoteresult-1 where book_name = '$bookname' ";
             mysqli_query($db_handle, $update);
           }
         }
@@ -174,9 +200,30 @@
         ?>
         <form name="download" method="post" action="bookinfo.php?bookname=<?PHP print $bookname; ?>">
         <input type="submit" name="download" value="Download" style="position:elative; left:40%;" ></form>
-        <br></section>
-
-
+        <br>
+        <h1 align='center' >Recommended Books</h1>
+        <?php
+          include 'recommendation.php';
+            
+          $htable=new hashtable;
+          $rec=populateHashtable($htable,$bookID);
+          for($i=0; $i<count($rec); $i++)
+            {
+              $bid = $rec[$i];
+              $SQL = "SELECT * from book where book_ID='$bid' ";
+              $result = mysqli_query($db_handle,$SQL);
+              while ( $db_field = mysqli_fetch_assoc($result) ) {
+                if($db_field['book_ID']!=$bookID){
+                  $url = "bookinfo.php?bookname=".$db_field['book_name'];?>
+                  <a href="<?php print $url; ?>">  
+                  <?php
+                  echo $db_field['book_name'] . "<BR>";
+                }
+              }
+            }
+          
+        ?>
+</section>
     </div>
 
 
