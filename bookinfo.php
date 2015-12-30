@@ -95,8 +95,6 @@
         <br><br>
         <?php
 
-        //include 'connectDB.php';
-
         $res=mysqli_query($db_handle,"SELECT user_ID FROM user WHERE username='$uname'");
         $userID=mysqli_fetch_assoc($res);
         $userID= $userID['user_ID'];
@@ -105,7 +103,7 @@
         $bookID=mysqli_fetch_assoc($res);
         $bookID= $bookID['book_ID'];
 
-
+        echo $bookID;
         if (isset($_POST['up-btn'])) 
         {
           $check = "SELECT * from voted_on where book_ID='$bookID' and user_ID='$userID' and has_voted=0";

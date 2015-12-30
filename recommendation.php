@@ -47,10 +47,10 @@ function populateHashtable($User_books, $BookID)
 					$b[5]=$prevDownloads[$i][$j+4];
 			}
 			for($h=0;$h<6; $h++)
-				{
+			{
 					$User_books->addbookinuser($prevDownloads[$i][$j], $b[$h], $i);
 					
-				}
+			}
 		}
 	}
 	$rez=findBook($BookID, $User_books);
@@ -95,21 +95,29 @@ function findBook($lastbook, $User_books)
 	{
 		for($i=0; $i<6; $i++)
 			$near_books[$ptr->books[$i]]++;
+	}$sql="SELECT category_ID from falls_in where book_ID = '$lastbook'";
+	$res=mysqli_query($db_handle, $sql);
+	$row=mysqli_fetch_assoc($res);
+	$category=$row['category_ID'];
+	$sql="SELECT book_ID from falls_in where category_ID = '$category'";
+	$row=mysqli_fetch_assoc($res);
+	$booksincat=array();
+	while($row=mysqli_fetch_assoc($res))
+	{
+		array_push($booksincat,$row['book_ID']);
 	}
+	for($i=0; $i<count($booksincat); $i++)
+		$near_books[$booksincat[$i]]++;
 	$rec=array();
 	$rec[0]=getIndex($near_books,array_max($near_books,0),$rec);
 	
-	// for ($r=0; $r<count($near_books); $r++)
-	// 	echo $r.$near_books[$r]." ";
-	 //echo "<BR>".$rec[0].' ';
+
 	for($i=1; $i<6; $i++)
 	{
-
 		$rec[$i]=getIndex($near_books,2,$rec);
-		
-		//echo $rec[$i],' ';
 	}
 
+	
 	return $rec;
 }
 
